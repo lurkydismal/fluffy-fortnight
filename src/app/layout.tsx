@@ -19,13 +19,11 @@
  */
 
 import type { Metadata } from "next";
-import { InitColorSchemeScript } from "@mui/material";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v16-appRouter";
 import { Geist_Mono } from "next/font/google";
 import "./globals.css";
 import log from "@/utils/stdlog";
 import { isDev, appName, appVersion } from "@/utils/stdvar";
-import MuiLayout from "@/components/MuiLayout";
+import SnackbarProvider from "@/providers/snackbar";
 
 // Configure Geist Mono font with CSS variable for global usage
 const font = Geist_Mono({
@@ -52,8 +50,8 @@ log.info(`Running ${isDev ? "DEVELOPMENT" : "PRODUCTION"} build`);
  * - children: React.ReactNode - all nested page and component content
  *
  * Structure:
- * - <html lang="en"> with global font variable applied
- * - <body> contains:
+ * - \<html lang="en"\> with global font variable applied
+ * - \<body\> contains:
  *     - InitColorSchemeScript: ensures proper MUI theme handling
  *     - AppRouterCacheProvider: optimizes caching for MUI styles in Next.js App Router
  */
@@ -64,12 +62,10 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className={`${font.variable}`}>
-            <body>
-                <InitColorSchemeScript attribute="data" />
-
-                <AppRouterCacheProvider options={{ enableCssLayer: true }}>
-                    <MuiLayout>{children}</MuiLayout>
-                </AppRouterCacheProvider>
+            <body className="h-dvh">
+                <main>
+                    <SnackbarProvider>{children}</SnackbarProvider>
+                </main>
             </body>
         </html>
     );

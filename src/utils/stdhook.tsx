@@ -1,4 +1,7 @@
-import { useEffect, useState } from "react";
+"use client";
+
+import { useEffect, useMemo, useState } from "react";
+import { calculateReadingTime, getAccurateWordCount } from "@/utils/stdfunc";
 
 /**
  * React hook to track whether the `<html>` element has the `data-dark` attribute.
@@ -51,4 +54,42 @@ export function useHtmlDataDark(): boolean {
     }, []);
 
     return isDark;
+}
+
+/**
+ * React hook that computes live text statistics.
+ *
+ * Features:
+ * - Word count (Unicode aware)
+ * - Character count (with spaces)
+ * - Character count (without spaces)
+ * - Estimated reading time
+ *
+ * Optimized using useMemo to prevent unnecessary recalculations.
+ *
+ * @param text - The text content to analyze
+ * @returns Object containing text statistics
+ *
+ * Example:
+ * const stats = useWordStats(text);
+ * stats.wordCount
+ * stats.readingTime
+ */
+export function useWordStats(text: string) {
+    return useMemo(() => {
+        const wordCount = getAccurateWordCount(text);
+
+        const characterCount = text.length;
+
+        const characterCountNoSpaces = text.replace(/\s/g, "").length;
+
+        const readingTime = calculateReadingTime(wordCount);
+
+        return {
+            wordCount,
+            characterCount,
+            characterCountNoSpaces,
+            readingTime,
+        };
+    }, [text]);
 }

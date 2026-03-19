@@ -6,10 +6,12 @@ const nextConfig: NextConfig = {
     // Disable ONLY if nginx has enabled brotli
     // compress: false,
 
+    logging: {
+        browserToTerminal: true,
+    },
+
     experimental: {
         cssChunking: true,
-        browserDebugInfoInTerminal: true,
-        viewTransition: true,
     },
 
     images: {
