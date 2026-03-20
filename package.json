@@ -1,5 +1,5 @@
 {
-    "name": "template_next",
+    "name": "template_tw",
     "version": "0.1.0",
     "private": true,
     "scripts": {
@@ -7,10 +7,6 @@
         "build": "next build",
         "start": "next start",
         "test": "vitest",
-        "generate": "drizzle-kit generate",
-        "migrate": "drizzle-kit migrate",
-        "push": "drizzle-kit push",
-        "pull": "drizzle-kit pull",
         "lint": "eslint",
         "format": "prettier --write \"src/**/*.{js,ts,jsx,tsx,json,css,scss,md}\"",
         "format:check": "prettier --check \"src/**/*.{js,ts,jsx,tsx,json,css,scss,md}\""
